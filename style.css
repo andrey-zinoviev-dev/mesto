@@ -1,0 +1,153 @@
+.root {
+    background-color: #000000;
+    max-width: 1280px;
+    margin: 0 auto;
+    color: white;
+}
+.header {
+    margin: 45px 199px 37px 199px;
+    border-bottom: 1px solid #545454;
+}
+.header__logo {
+    padding-bottom: 41px;
+}
+.profile {
+    margin: 45px 199px 48px 199px;
+    display: flex;
+    align-items: flex-start;
+}
+.avatar {
+    border-radius: 50%;
+    margin-right: 30px;
+}
+.profile-info {
+    width: 100%;
+    margin-top: 18px;
+}
+.profile-info__heading {
+    font-size: 42px;
+    line-height: 56px;
+    margin: 0;
+}
+.profile-info__subtitle {
+    margin: 0;
+    font-size: 18px;
+    line-height: 22px;
+}
+.profile__edit-button {
+    margin-left: 5px;
+}
+.profile__add-button {
+    background-color: black;
+    border: 1px solid white;
+    display: inline-block;
+    margin-top: 35px;
+    padding: 12px 64px;
+}
+.elements {
+    margin: 45px 199px 37px 199px;
+    display: grid;
+    grid-template-columns: 282px 1fr 1fr;
+    grid-gap: 18px;
+}
+.element {
+    display: flex;
+    flex-direction: column;
+}
+.element__photo {
+    border-radius: 10px 10px 0 0;
+}
+.rectangle {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 0 30px 0;
+    border-radius: 0 0 10px 10px;
+}
+.rectangle__text {
+    color: black;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    margin: 0 0 0 21px;
+}
+.rectangle__like {
+    margin-right: 21px;
+}
+.footer {
+    margin: 0 199px;
+    font-size: 18px;
+    line-height: 22px;
+    color: #545454;
+}
+.popup-window {
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+}
+.popup-window_opened {
+    display: flex;
+}
+.popup__container {
+    position: relative;
+    z-index: 1;
+    color: black;
+    background-color: white;
+    width: 33.6%;
+    border-radius: 10px 10px;
+}
+.popup {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.5;
+}
+.popup__title {
+    margin: 34px 64px 54px 36px;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+}
+.user-edit {
+    display: flex;
+    flex-direction: column;
+    margin: 0 36px;
+}
+.user-edit__button {
+    display: inline-block;
+    padding: 14px 125px 19px 125px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    color: white;
+    background-color: black;
+}
+.popup__close {
+    position: absolute;
+    top: -45px;
+    right: -50px;
+}
+.user-edit__author {
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 14px;
+    border: 0;
+    border-bottom: 1px solid black;
+    margin-bottom: 25px;
+}
+.user-edit__subtitle {
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 14px;
+    border: 0;
+    border-bottom: 1px solid black;
+    margin-bottom: 45px;
+}
