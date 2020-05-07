@@ -1,0 +1,19 @@
+let userEditButton = document.querySelector('.profile__edit-button');
+let popup = document.querySelector('.popup-window');
+let closeWindow = document.querySelector('.popup__close');
+let outerZone = document.querySelector('.popup');
+let author = document.querySelector('.profile-info__heading');
+let subtitle = document.querySelector('.profile-info__subtitle');
+let authorPopup = document.querySelector('.user-edit__author');
+let subtitlePopup = document.querySelector('.user-edit__subtitle')
+userEditButton.addEventListener('click', function() {
+    popup.classList.add('popup-window_opened');
+    authorPopup.value = author.textContent;
+    subtitlePopup.value = subtitle.textContent;
+})
+closeWindow.addEventListener('click', function() {
+    popup.classList.remove('popup-window_opened');
+})
+outerZone.addEventListener('click', function() {
+    popup.classList.remove('popup-window_opened');
+})
