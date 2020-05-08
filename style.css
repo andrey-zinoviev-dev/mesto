@@ -24,10 +24,14 @@
     width: 100%;
     margin-top: 18px;
 }
+.profile-info__wrapper {
+    display: flex;
+    margin-bottom: 10px;
+}
 .profile-info__heading {
     font-size: 42px;
     line-height: 56px;
-    margin: 0;
+    margin: 0 9px 0 0;
 }
 .profile-info__subtitle {
     margin: 0;
@@ -35,7 +39,7 @@
     line-height: 22px;
 }
 .profile__edit-button {
-    margin-left: 5px;
+    margin: 8px 0 0 5px;
 }
 .profile__add-button {
     background-color: black;

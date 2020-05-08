@@ -30,6 +30,7 @@ function formSubmit(event) {
     subtitle.textContent = subtitlePopup.value;
     console.log(author.textContent);
     console.log(subtitle.textContent);
+
 }
 editForm.addEventListener('submit', formSubmit)
 
