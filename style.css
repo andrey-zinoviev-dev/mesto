@@ -1,4 +1,6 @@
+@import url(./fonts/inter.css);
 .root {
+    font-family: 'Inter';
     background-color: #000000;
     max-width: 1280px;
     margin: 0 auto;
@@ -11,8 +13,11 @@
 .header__logo {
     padding-bottom: 41px;
 }
+.content {
+    margin: 0 199px;
+}
 .profile {
-    margin: 45px 199px 48px 199px;
+    margin: 45px 0 48px 0;
     display: flex;
     align-items: flex-start;
 }
@@ -49,9 +54,10 @@
     padding: 12px 64px;
 }
 .elements {
-    margin: 45px 199px 37px 199px;
+    /* margin: 45px 0 37px 0; */
+    margin: 45px 0 66px 0;
     display: grid;
-    grid-template-columns: 282px 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 18px;
 }
 .element {
@@ -60,6 +66,7 @@
 }
 .element__photo {
     border-radius: 10px 10px 0 0;
+    width: 100%;
 }
 .rectangle {
     background-color: white;
@@ -84,18 +91,18 @@
     line-height: 22px;
     color: #545454;
 }
-.popup-window {
+.popup {
     display: none;
     position: fixed;
     height: 100%;
     width: 100%;
     top: 0;
     left: 0;
-    /* display: flex; */
     align-items: center;
     justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
 }
-.popup-window_opened {
+.popup_opened {
     display: flex;
 }
 .popup__container {
@@ -103,17 +110,8 @@
     z-index: 1;
     color: black;
     background-color: white;
-    width: 33.6%;
+    min-width: 430px;
     border-radius: 10px 10px;
-}
-.popup {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: black;
-    opacity: 0.5;
 }
 .popup__title {
     margin: 34px 64px 54px 36px;
@@ -128,7 +126,8 @@
 }
 .user-edit__button {
     display: inline-block;
-    padding: 14px 125px 19px 125px;
+    /* padding: 14px 125px 19px 125px; */
+    padding: 14px calc((100% - 125px)/2) 19px;
     margin-bottom: 30px;
     font-size: 18px;
     color: white;
@@ -154,4 +153,97 @@
     border: 0;
     border-bottom: 1px solid black;
     margin-bottom: 45px;
+}
+@media screen and (max-width: 1279px) {
+    .header {
+        margin: 45px 129px 37px 129px;
+    }
+    .content {
+        margin: 0 129px;
+    }
+    .elements {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footer {
+        margin: 0 129px;
+    }
+}
+@media screen and (max-width: 1023px) {
+    .header {
+        margin: 45px 49px 37px 49px;
+    }
+    .content {
+        margin: 0 49px;
+    }
+    .footer {
+        margin: 0 49px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .header {
+        margin: 27px 0 38px 0;
+    }
+    .header__logo {
+        margin-left: 27px;
+        max-width: 104px;
+    }
+    .content {
+        margin: 0 19px;
+    }
+    .profile {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-info {
+        text-align: center;
+    }
+    .profile-info__wrapper {
+        margin: 0;
+        justify-content: center;
+    }
+    .profile-info__heading {
+        font-size: 27px;
+        line-height: 56px;
+    }
+    .profile-info__subtitle {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .profile__edit-button {
+        margin: 0;
+        max-width: 18px;
+    }
+    .profile__add-button {
+        padding: 17px 132px;
+        margin-top: 36px;
+    }
+    .profile__add-button-sign {
+        max-width: 16px;
+    }
+    .popup__container {
+        min-width: 310px;
+        text-align: center;
+    }
+    .popup__title {
+        margin: 34px 0 54px 0;
+    }
+    .popup__close {
+        top: -50px;
+        right: -10px;
+    }
+    .user-edit {
+        margin: 0 18px;
+    }
+    .elements {
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+    }
+    .footer {
+        margin: 0 19px 36px 19px;
+    }
+    .footer__copyright {
+        margin: 0;
+        font-size: 14px;
+        line-height: 17px;
+    }
 }

@@ -1,7 +1,6 @@
 let userEditButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup-window');
+let popup = document.querySelector('.popup');
 let closeWindow = document.querySelector('.popup__close');
-let outerZone = document.querySelector('.popup');
 let author = document.querySelector('.profile-info__heading');
 let subtitle = document.querySelector('.profile-info__subtitle');
 let authorPopup = document.querySelector('.user-edit__author');
@@ -10,12 +9,12 @@ let submitUserChanges = document.querySelector('.user-edit__button');
 let editForm = document.querySelector('.user-edit');
 let data;
 userEditButton.addEventListener('click', function() {
-    popup.classList.add('popup-window_opened');
+    popup.classList.add('popup_opened');
     authorPopup.value = author.textContent;
     subtitlePopup.value = subtitle.textContent;
 })
 closeWindow.addEventListener('click', function() {
-    popup.classList.remove('popup-window_opened');
+    popup.classList.remove('popup_opened');
 })
 // outerZone.addEventListener('click', function() {
 //     popup.classList.remove('popup-window_opened');
