@@ -1,0 +1,5 @@
+@import url(./__photo/element__photo.css);
+.element {
+    display: flex;
+    flex-direction: column;
+}

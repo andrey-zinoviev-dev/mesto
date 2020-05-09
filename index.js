@@ -1,13 +1,12 @@
-let userEditButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let closeWindow = document.querySelector('.popup__close');
-let author = document.querySelector('.profile-info__heading');
-let subtitle = document.querySelector('.profile-info__subtitle');
-let authorPopup = document.querySelector('.user-edit__author');
-let subtitlePopup = document.querySelector('.user-edit__subtitle');
-let submitUserChanges = document.querySelector('.user-edit__button');
-let editForm = document.querySelector('.user-edit');
-let data;
+const userEditButton = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup');
+const closeWindow = document.querySelector('.popup__close');
+const author = document.querySelector('.profile-info__heading');
+const subtitle = document.querySelector('.profile-info__subtitle');
+const authorPopup = document.querySelector('.user-edit__author');
+const subtitlePopup = document.querySelector('.user-edit__subtitle');
+const submitUserChanges = document.querySelector('.user-edit__button');
+const editForm = document.querySelector('.user-edit');
 userEditButton.addEventListener('click', function() {
     popup.classList.add('popup_opened');
     authorPopup.value = author.textContent;
@@ -24,7 +23,7 @@ closeWindow.addEventListener('click', function() {
 // }
 function formSubmit(event) {
     event.preventDefault();
-    popup.classList.remove('popup-window_opened');
+    popup.classList.remove('popup_opened');
     author.textContent = authorPopup.value;
     subtitle.textContent = subtitlePopup.value;
     console.log(author.textContent);

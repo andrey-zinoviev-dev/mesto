@@ -1,0 +1,9 @@
+@import url(./__text/rectangle__text.css);
+@import url(./__like/rectangle__like.css);
+.rectangle {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 0 30px 0;
+    border-radius: 0 0 10px 10px;
+}
