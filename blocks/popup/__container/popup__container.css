@@ -8,7 +8,7 @@
 }
 @media screen and (max-width: 767px) {
     .popup__container {
-        min-width: 310px;
+        min-width: 296px;
         text-align: center;
     }
 }
