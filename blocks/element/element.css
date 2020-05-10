@@ -1,4 +1,7 @@
 @import url(./__photo/element__photo.css);
+@import url(./__rectangle/element__rectangle.css);
+@import url(./__text/element__text.css);
+@import url(./element__like/element__like.css);
 .element {
     display: flex;
     flex-direction: column;

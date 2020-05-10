@@ -12,75 +12,77 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img class="avatar" src="./images/Kusto.jpg" alt="Кусто">
-            <div class="profile-info">
-                <div class="profile-info__wrapper">
-                    <h1 class="profile-info__heading">Жак-Ив Кусто</h1>
-                    <img class="profile__edit-button" src="./images/editButton.svg" alt="редактировать пользователя">
+            <img class="profile__avatar" src="./images/Kusto.jpg" alt="Кусто">
+            <div class="profile__info">
+                <div class="profile__wrapper">
+                    <h1 class="profile__heading">Жак-Ив Кусто</h1>
+                    <button type="button" class="profile__edit-button"><img class="profile__edit-button-sign" src="./images/Vector-edit.png" alt="изменить пользователя"></button>
                 </div>
-                <p class="profile-info__subtitle">Исследователь океана</p>
+                <p class="profile__subtitle">Исследователь океана</p>
             </div>
-            <button class="profile__add-button"><img class="profile__add-button-sign" src="./images/Vector.png" alt="Добавить картинку"></button>
-        </section>
-        <section class="popup">
-            <div class="popup__container">
-                <h4 class="popup__title">Редактировать профиль</h4>
-                <img class="popup__close" src="./images/Close Icon.png" alt="закрыть окно">
-                <form class="user-edit" action="">
-                    <input class="user-edit__author" type="text">
-                    <input class="user-edit__subtitle" type="text">
-                    <button class="user-edit__button">Сохранить</button>
-                </form>
-            </div>
+            <button type="button" class="profile__add-button"><img class="profile__add-button-sign" src="./images/Vector.png" alt="Добавить картинку"></button>
         </section>
         <section class="elements">
-            <div class="element">
-                <img class="element__photo" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
-                <div class="rectangle">
-                    <p class="rectangle__text">Карачаевск</p>
-                    <img class="rectangle__like" src="./images/like.svg" alt="лайк">
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash — copy.png" alt="Эльбрус">
-                <div class="rectangle">
-                    <p class="rectangle__text">Гора Эльбрус</p>
-                    <img class="rectangle__like" src="./images/like.svg" alt="лайк">
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash.png" alt="Домбай">
-                <div class="rectangle">
-                    <p class="rectangle__text">Домбай</p>
-                    <img class="rectangle__like" src="./images/like.svg" alt="лайк">
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/4930361594912182.jpeg" alt="Ставрополь">
-                <div class="rectangle">
-                    <p class="rectangle__text">Ставрополь</p>
-                    <img class="rectangle__like" src="./images/like.svg" alt="лайк">
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/thumb1130_vozd.jpg" alt="Домбай">
-                <div class="rectangle">
-                    <p class="rectangle__text">Домбай</p>
-                    <img class="rectangle__like" src="./images/like.svg" alt="лайк">
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/rm1920-2-mr.jpg" alt="Волгоград">
-                <div class="rectangle">
-                    <p class="rectangle__text">Волгоград</p>
-                    <img class="rectangle__like" src="./images/like.svg" alt="лайк">
-                </div>
-            </div>
+            <ul class="elements__list">
+                <li class="element">
+                    <img class="element__photo" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
+                    <div class="element__rectangle">
+                        <p class="element__text">Карачаевск</p>
+                        <button type="button" class="element__like"><img class="rectangle__like-sign" src="./images/like.svg" alt="лайк"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash — copy.png" alt="Эльбрус">
+                    <div class="element__rectangle">
+                        <p class="element__text">Гора Эльбрус</p>
+                        <button type="button" class="element__like"><img class="rectangle__like-sign" src="./images/like.svg" alt="лайк"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash.png" alt="Домбай">
+                    <div class="element__rectangle">
+                        <p class="element__text">Домбай</p>
+                        <button type="button" class="element__like"><img class="rectangle__like-sign" src="./images/like.svg" alt="лайк"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__photo" src="./images/4930361594912182.jpeg" alt="Ставрополь">
+                    <div class="element__rectangle">
+                        <p class="element__text">Ставрополь</p>
+                        <button type="button" class="element__like"><img class="rectangle__like-sign" src="./images/like.svg" alt="лайк"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__photo" src="./images/thumb1130_vozd.jpg" alt="Домбай">
+                    <div class="element__rectangle">
+                        <p class="element__text">Домбай</p>
+                        <button type="button" class="element__like"><img class="rectangle__like-sign" src="./images/like.svg" alt="лайк"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__photo" src="./images/rm1920-2-mr.jpg" alt="Волгоград">
+                    <div class="element__rectangle">
+                        <p class="element__text">Волгоград</p>
+                        <button type="button" class="element__like"><img class="rectangle__like-sign" src="./images/like.svg" alt="лайк"></button>
+                    </div>
+                </li>
+            </ul>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
+    <section class="popup">
+        <div class="popup__container">
+            <h4 class="popup__title">Редактировать профиль</h4>
+            <button type="button" class="popup__close"><img class="popup__close-sign" src="./images/Close Icon.png" alt="закрыть окно"></button>
+            <form class="popup__user-edit" action="/">
+                <input class="popup__input popup__input_order_first" name="username" type="text">
+                <input class="popup__input popup__input_order_second" name="occupation" type="text">
+                <button type="submit" class="popup__edit-button">Сохранить</button>
+            </form>
+        </div>
+    </section>
     <script src="index.js"></script>
 </body>
 </html>

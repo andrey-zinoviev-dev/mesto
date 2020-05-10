@@ -1,9 +1,7 @@
-.user-edit__author {
-    font-family: 'Inter';
+.popup__input {
     font-size: 14px;
     line-height: 17px;
     padding-bottom: 14px;
     border: 0;
     border-bottom: 1px solid black;
-    margin-bottom: 25px;
 }

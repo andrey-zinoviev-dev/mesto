@@ -1,34 +1,27 @@
 const userEditButton = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 const closeWindow = document.querySelector('.popup__close');
-const author = document.querySelector('.profile-info__heading');
-const subtitle = document.querySelector('.profile-info__subtitle');
-const authorPopup = document.querySelector('.user-edit__author');
-const subtitlePopup = document.querySelector('.user-edit__subtitle');
-const submitUserChanges = document.querySelector('.user-edit__button');
-const editForm = document.querySelector('.user-edit');
+const author = document.querySelector('.profile__heading');
+const subtitle = document.querySelector('.profile__subtitle');
+const authorPopup = document.querySelector('.popup__input_order_first');
+const subtitlePopup = document.querySelector('.popup__input_order_second');
+const submitUserChanges = document.querySelector('.popup__edit-button');
+const editForm = document.querySelector('.popup__user-edit');
 userEditButton.addEventListener('click', function() {
     popup.classList.add('popup_opened');
     authorPopup.value = author.textContent;
     subtitlePopup.value = subtitle.textContent;
 })
-closeWindow.addEventListener('click', function() {
+function closePopup() {
     popup.classList.remove('popup_opened');
-})
-// outerZone.addEventListener('click', function() {
-//     popup.classList.remove('popup-window_opened');
-// })
-// function submitForm(event) {
-//     event.preventDefault
-// }
+}
+closeWindow.addEventListener('click', closePopup);
+
 function formSubmit(event) {
     event.preventDefault();
-    popup.classList.remove('popup_opened');
+    closePopup();
     author.textContent = authorPopup.value;
     subtitle.textContent = subtitlePopup.value;
-    console.log(author.textContent);
-    console.log(subtitle.textContent);
-
 }
 editForm.addEventListener('submit', formSubmit)
 
