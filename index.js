@@ -7,6 +7,32 @@ let authorPopup = document.querySelector('.popup__input_order_first');
 let subtitlePopup = document.querySelector('.popup__input_order_second');
 const submitUserChanges = document.querySelector('.popup__edit-button');
 const editForm = document.querySelector('.popup__user-edit');
+const initialCards = [
+    {
+        name: "Карачаевск",
+        link: "./images/kirill-pershin-1088404-unsplash.jpg"
+    },
+    {
+        name: "Гора Эльбрус",
+        link: "./images/kirill-pershin-1404681-unsplash—copy.png"
+    },
+    {
+        name: "Домбай",
+        link: "./images/kirill-pershin-1404681-unsplash.png"
+    },
+    {
+        name: "Ставрополь",
+        link: "./images/4930361594912182.jpeg"
+    },
+    {
+        name: "Домбай",
+        link: "./images/thumb1130_vozd.jpg"
+    },
+    {
+        name: "Волгоград",
+        link: "./images/rm1920-2-mr.jpg"
+    }
+];
 
 function openPopup() {
     popup.classList.add('popup_opened');
@@ -37,3 +63,16 @@ userEditButton.addEventListener('click', togglePopup);
 closeWindow.addEventListener('click', togglePopup);
 editForm.addEventListener('submit', formSubmit);
 
+let cards = Array.from(document.querySelectorAll('.elements__element'));
+let cardsNames = cards.map(card => {
+    return card.querySelector('.elements__element-text');
+})
+let cardsLinks = cards.map(card => {
+    return card.querySelector('.elements__element-photo');
+})
+cardsNames.forEach((el, index, array) => {
+    array[index].textContent = initialCards[index].name;
+})
+cardsLinks.forEach((el, index, array) => {
+    array[index].src = initialCards[index].link;
+})
