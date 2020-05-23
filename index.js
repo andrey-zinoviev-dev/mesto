@@ -108,8 +108,32 @@ function addCard(event) {
     const cardElement = cardContainer.cloneNode(true);
     cardElement.querySelector('.elements__element-photo').src = cardPicture.value;
     cardElement.querySelector('.elements__element-text').textContent = cardName.value;
+    const likeTemplate = cardElement.querySelector('.elements__element-like');
+    likeTemplate.addEventListener('click', function(event) {
+        if(event.target.classList.contains('elements__element-like-sign_status_active')) {
+            event.target.classList.remove('elements__element-like-sign_status_active');
+            event.target.src = './images/like.svg';
+        } else {
+            event.target.classList.add('elements__element-like-sign_status_active');
+            event.target.src = './images/like_active.svg';
+        }
+    })
     cardsList.prepend(cardElement);
     closePopup(event.target.parentElement.parentElement);
 }
 
 addCardForm.addEventListener('submit', addCard);
+
+let likeButtons = document.querySelectorAll('.elements__element-like');
+console.log(likeButtons);
+likeButtons.forEach((el, index, array) => {
+    array[index].addEventListener('click', function(event) {
+        if(event.target.classList.contains('elements__element-like-sign_status_active')) {
+            event.target.classList.remove('elements__element-like-sign_status_active');
+            event.target.src = './images/like.svg'
+        } else {
+            event.target.classList.add('elements__element-like-sign_status_active');
+            event.target.src = './images/like_active.svg';
+        }
+    })
+})
