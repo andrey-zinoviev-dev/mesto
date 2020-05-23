@@ -118,6 +118,16 @@ function addCard(event) {
             event.target.src = './images/like_active.svg';
         }
     })
+    const deleteTemplate = cardElement.querySelector('.elements__element-delete-sign');
+    deleteTemplate.addEventListener('click', function(event) {
+        event.target.parentElement.classList.add('elements__element_status_deleted');
+    })
+    cardElement.querySelector('.elements__element-photo').addEventListener('click', function(event) {
+        imageLink = event.target.src;
+        popupPicture.src = imageLink;
+        openImagePopup();
+        popupImageCloseSign.addEventListener('click', toggleImagePopup);
+    })
     cardsList.prepend(cardElement);
     closePopup(event.target.parentElement.parentElement);
     cardName.value = "";
@@ -138,10 +148,35 @@ likeButtons.forEach((el, index, array) => {
         }
     })
 })
-let cardsAll = document.querySelectorAll('.elements__element');
+
 let deleteButtons = document.querySelectorAll('.elements__element-delete-sign');
 deleteButtons.forEach((el, index, array) => {
     array[index].addEventListener('click', function(event) {
         event.target.parentElement.classList.add('elements__element_status_deleted');
+    })
+})
+let cardsImages = document.querySelectorAll('.elements__element-photo');
+const popupImageWindow = document.querySelector('.popup_picture');
+const popupPicture = document.querySelector('.popup__image');
+const popupImageCloseSign = document.querySelector('.popup__close_type_open-image');
+function openImagePopup() {
+    popupImageWindow.classList.add('popup_opened');
+}
+function toggleImagePopup(event) {
+    let element = event.target.parentElement.parentElement.parentElement;
+    console.log(element);
+    if(element.classList.contains('popup_opened')) {
+        closePopup(element);
+    } else {
+        openImagePopup();
+    }
+}
+cardsImages.forEach((el, index, array) => {
+    let imageLink;
+    array[index].addEventListener('click', function(event) {
+        imageLink = event.target.src;
+        popupPicture.src = imageLink;
+        openImagePopup();
+        popupImageCloseSign.addEventListener('click', toggleImagePopup);
     })
 })

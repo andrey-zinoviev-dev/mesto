@@ -5,6 +5,7 @@
 @import url(./__edit-button/popup__edit-button.css);
 @import url(./__title/popup__title.css);
 @import url(./__close/popup__close.css);
+@import url(./__image/popup__image.css);
 .popup {
     display: none;
     position: fixed;
