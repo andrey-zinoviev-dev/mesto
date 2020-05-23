@@ -120,12 +120,13 @@ function addCard(event) {
     })
     cardsList.prepend(cardElement);
     closePopup(event.target.parentElement.parentElement);
+    cardName.value = "";
+    cardPicture.value = "";
 }
 
 addCardForm.addEventListener('submit', addCard);
 
 let likeButtons = document.querySelectorAll('.elements__element-like');
-console.log(likeButtons);
 likeButtons.forEach((el, index, array) => {
     array[index].addEventListener('click', function(event) {
         if(event.target.classList.contains('elements__element-like-sign_status_active')) {
@@ -135,5 +136,12 @@ likeButtons.forEach((el, index, array) => {
             event.target.classList.add('elements__element-like-sign_status_active');
             event.target.src = './images/like_active.svg';
         }
+    })
+})
+let cardsAll = document.querySelectorAll('.elements__element');
+let deleteButtons = document.querySelectorAll('.elements__element-delete-sign');
+deleteButtons.forEach((el, index, array) => {
+    array[index].addEventListener('click', function(event) {
+        event.target.parentElement.classList.add('elements__element_status_deleted');
     })
 })
