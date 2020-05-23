@@ -83,6 +83,26 @@
             </form>
         </div>
     </section>
+    <section class="popup popup_addCard">
+        <div class="popup__container">
+            <h4 class="popup__title">Новое место</h4>
+            <button type="button" class="popup__close popup__close_type_addCard"><img class="popup__close-sign" src="./images/Close-icon.png" alt="закрыть окно"></button>
+            <form class="popup__addCard-form" action="/">
+                <input class="popup__input popup__input_place-name" name="place-name" type="text" placeholder="Название">
+                <input class="popup__input popup__input_image-link" name="palce-image-link" type="text" placeholder="Ссылка на картинку">
+                <button type="submit" class="popup__edit-button popup__edit-button_action_addCard">Сохранить</button>
+            </form>
+        </div>
+    </section>
+    <template id="card-container">
+        <li class="elements__element">
+            <img class="elements__element-photo" alt="">
+            <div class="elements__element-rectangle">
+                <p class="elements__element-text"></p>
+                <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
+            </div>
+        </li>
+    </template>
     <script src="index.js"></script>
 </body>
 </html>
