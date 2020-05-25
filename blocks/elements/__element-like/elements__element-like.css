@@ -5,6 +5,7 @@
     background-color: white;
     max-height: 19px;
     transition: opacity linear 0.2s;
+    cursor: pointer;
 }
 .elements__element-like:hover {
     opacity: 0.6;
