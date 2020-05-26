@@ -102,7 +102,6 @@ function addTextAndImage(element, image, text) {
 
 //функция удаления картинки
 function deleteCard(element) {
-    console.log(element);
     element.target.parentElement.classList.add('elements__element_status_deleted');
 }
 
