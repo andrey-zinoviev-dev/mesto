@@ -107,13 +107,11 @@ function deleteCard(element) {
 
 //функия для активации лайка
 function likeUnactive(element) {
-    console.log(element);
     element.classList.remove('elements__element-like-sign_status_active');
     element.src = './images/like.svg';
 }
 //функция деактивации лайка
 function likeActive(element) {
-    console.log(element);
     element.classList.add('elements__element-like-sign_status_active');
     element.src = './images/like_active.svg';
 }
