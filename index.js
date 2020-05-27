@@ -111,7 +111,6 @@ function likeActive(element) {
 
 //функция актив-деактив лайков
 function likeToggle(element) {
-    console.log(element);
     if(!element.firstChild.classList.contains('elements__element-like-sign_status_active')) {
         likeActive(element.firstChild);
     } else {
