@@ -42,17 +42,10 @@ const initialCards = [
 ];
 
 //определение переменных картинок и текста карточек
-let cardsImages = document.querySelectorAll('.elements__element-photo');
 const popupImageWindow = document.querySelector('.popup_picture');
 const popupPicture = document.querySelector('.popup__image');
 const popupPictureText = document.querySelector('.popup__image-text');
 const popupImageCloseSign = document.querySelector('.popup__close_type_open-image');
-
-//определение кнопки удаления карточек
-const deleteButton = document.querySelector('.elements__element-delete-sign');
-
-//определение кнопки лайка у карточки
-const likeButton = document.querySelector('.elements__element-like');
 
 //загрузка начальных карточек через массив
 let cards = Array.from(document.querySelectorAll('.elements__element'));
@@ -95,14 +88,14 @@ function addCard(event) {
 }
 
 //функция добавления текста и источника картинки
-function addTextAndImage(element, image, text) {
-    element.querySelector('.elements__element-photo').src = image;
-    element.querySelector('.elements__element-text').textContent = text;
+function addTextAndImage(elementPicture, elementText, image, text) {
+    elementPicture.src = image;
+    elementText.textContent = text;
 }
 
 //функция удаления картинки
 function deleteCard(element) {
-    element.target.parentElement.classList.add('elements__element_status_deleted');
+    element.closest('.elements__element').classList.add('elements__element_status_deleted');
 }
 
 //функия для активации лайка
@@ -119,23 +112,27 @@ function likeActive(element) {
 //функция актив-деактив лайков
 function likeToggle(element) {
     console.log(element);
-    if(!element.target.classList.contains('elements__element-like-sign_status_active')) {
-        likeActive(element.target);
+    if(!element.firstChild.classList.contains('elements__element-like-sign_status_active')) {
+        likeActive(element.firstChild);
     } else {
-        likeUnactive(element.target);
+        likeUnactive(element.firstChild);
     }
 }
 
 //функция рендера карточки
 function renderCard(elementsList, element, image, text) {
-    addTextAndImage(element, image, text);
-    element.querySelector('.elements__element-delete-sign').addEventListener('click', function(event) {
-        deleteCard(event);
+    let cardPicture = element.querySelector('.elements__element-photo');
+    let cardText = element.querySelector('.elements__element-text');
+    let deleteButton = element.querySelector('.elements__element-delete-sign');
+    let likeButton = element.querySelector('.elements__element-like')
+    addTextAndImage(cardPicture, cardText, image, text);
+    deleteButton.addEventListener('click', function() {
+        deleteCard(deleteButton);
     })
-    element.querySelector('.elements__element-like').addEventListener('click', function(event) {
-        likeToggle(event);
+    likeButton.addEventListener('click', function() {
+        likeToggle(likeButton);
     })
-    element.querySelector('.elements__element-photo').addEventListener('click', function (event) {
+    cardPicture.addEventListener('click', function (event) {
         zoomImage(event);
         popupImageCloseSign.addEventListener('click', toggleImagePopup);
     })
@@ -186,10 +183,6 @@ closeWindowAddCard.addEventListener('click', function() {
 });
 addCardForm.addEventListener('submit', addCard);
 
-//применение функции открытия картинок карточек через массив
-cardsImages.forEach((el, index, array) => {
-    array[index].addEventListener('click', zoomImage)
-})
 //отображение начальных карточек
 cards.forEach((el, index, array) => {
     renderCard(cardsList, el, initialCards[index].link, initialCards[index].name);
