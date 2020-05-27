@@ -48,7 +48,7 @@ const popupPictureText = document.querySelector('.popup__image-text');
 const popupImageCloseSign = document.querySelector('.popup__close_type_open-image');
 
 //загрузка начальных карточек через массив
-let cards = Array.from(document.querySelectorAll('.elements__element'));
+const cards = Array.from(document.querySelectorAll('.elements__element'));
 
 //фкнция открытия модального окна
 function openPopupElement(element) {
@@ -67,7 +67,6 @@ function formSubmit(event) {
 }
 //функция перменного открытия и закрытия модального окна на основе существования класса
 function togglePopup(element) {
-    // let element = event.target.parentElement.parentElement.parentElement;
     if(element.classList.contains('popup_opened')) {
         closePopup(element);
     } else {
@@ -98,32 +97,17 @@ function deleteCard(element) {
     element.closest('.elements__element').classList.add('elements__element_status_deleted');
 }
 
-//функия для активации лайка
-function likeUnactive(element) {
-    element.classList.remove('elements__element-like-sign_status_active');
-    element.src = './images/like.svg';
-}
-//функция деактивации лайка
-function likeActive(element) {
-    element.classList.add('elements__element-like-sign_status_active');
-    element.src = './images/like_active.svg';
-}
-
 //функция актив-деактив лайков
 function likeToggle(element) {
-    if(!element.firstChild.classList.contains('elements__element-like-sign_status_active')) {
-        likeActive(element.firstChild);
-    } else {
-        likeUnactive(element.firstChild);
-    }
+    element.firstChild.classList.toggle('elements__element-like-sign_status_active');
 }
 
 //функция рендера карточки
 function renderCard(elementsList, element, image, text) {
-    let cardPicture = element.querySelector('.elements__element-photo');
-    let cardText = element.querySelector('.elements__element-text');
-    let deleteButton = element.querySelector('.elements__element-delete-sign');
-    let likeButton = element.querySelector('.elements__element-like')
+    const cardPicture = element.querySelector('.elements__element-photo');
+    const cardText = element.querySelector('.elements__element-text');
+    const deleteButton = element.querySelector('.elements__element-delete-sign');
+    const likeButton = element.querySelector('.elements__element-like')
     addTextAndImage(cardPicture, cardText, image, text);
     deleteButton.addEventListener('click', function() {
         deleteCard(deleteButton);
@@ -151,10 +135,8 @@ function toggleImagePopup(event) {
 
 //функция увеличения картинки по клику
 function zoomImage(element) {
-    let imageLink;
-    let imageName;
-    imageLink = element.target.src;
-    imageName = element.target.nextElementSibling.children[0].textContent;
+    const imageLink = element.target.src;
+    const imageName = element.target.nextElementSibling.children[0].textContent;
     popupPicture.src = imageLink;
     popupPictureText.textContent = imageName;
     openPopupElement(popupImageWindow);
