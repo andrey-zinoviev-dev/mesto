@@ -5,11 +5,11 @@ const author = document.querySelector('.profile__heading');
 const subtitle = document.querySelector('.profile__subtitle');
 const authorPopup = document.querySelector('.popup__input_order_first');
 const subtitlePopup = document.querySelector('.popup__input_order_second');
-const editForm = document.querySelector('.popup__user-edit');
+const editForm = document.querySelector('.popup__form_type_user-edit');
 const addCardButton = document.querySelector('.profile__add-button');
 const popupAddCard = document.querySelector('.popup_addCard');
 const closeWindowAddCard = document.querySelector('.popup__close_type_addCard');
-const addCardForm = document.querySelector('.popup__addCard-form');
+const addCardForm = document.querySelector('.popup__form_type_addCard-form');
 const cardName = document.querySelector('.popup__input_place-name');
 const cardPicture = document.querySelector('.popup__input_image-link');
 const cardTemplate = document.querySelector('#card-container');
@@ -41,6 +41,15 @@ const initialCards = [
     }
 ];
 
+const obj = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__edit-button',
+    inactiveButtonClass: 'popup__edit-button_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+}
+
 //определение переменных картинок и текста карточек
 const popupImageWindow = document.querySelector('.popup_picture');
 const popupPicture = document.querySelector('.popup__image');
@@ -50,6 +59,10 @@ const popupImageCloseSign = document.querySelector('.popup__close_type_open-imag
 //загрузка начальных карточек через массив
 const cards = Array.from(document.querySelectorAll('.elements__element'));
 
+//
+
+// authorPopup.value = author.textContent;
+// subtitlePopup.value = subtitle.textContent;
 //фкнция открытия модального окна
 function openPopupElement(element) {
     element.classList.add('popup_opened');
@@ -73,6 +86,7 @@ function togglePopup(element) {
         openPopupElement(element);
         authorPopup.value = author.textContent;
         subtitlePopup.value = subtitle.textContent;
+        enableValidationObj(obj);
     }
 }
 
@@ -168,3 +182,114 @@ addCardForm.addEventListener('submit', addCard);
 cards.forEach((el, index, array) => {
     renderCard(cardsList, el, initialCards[index].link, initialCards[index].name);
 })
+
+//тест валидности форм из попапов
+
+function checkValidity(form, input, inputErrorClass) {
+    if(input.validity.valid) {
+        hideError(form, input, inputErrorClass);
+    } else {
+        showError(form, input, inputErrorClass);
+    }
+}
+
+function showError(formElement, input, inputErrorClass) {
+    const errorElement = formElement.querySelector(`#${input.id}-error`);
+    input.classList.add(inputErrorClass);
+    errorElement.textContent = input.validationMessage;
+}
+
+function hideError(formElement, input, inputErrorClass) {
+    const errorElement = formElement.querySelector(`#${input.id}-error`);
+    input.classList.remove(inputErrorClass);
+    errorElement.textContent = '';
+}
+
+function setEventListeners(form, inputs, formButton, buttonErrorClass, inputErrorClass) {
+    
+    inputs.forEach((input) => {
+        input.addEventListener('input', () => {
+            checkValidity(form, input, inputErrorClass);
+            switchButtonStatus(inputs, formButton, buttonErrorClass);
+        })
+    })
+}
+
+function hasInvalidInput(inputs) {
+    return inputs.some((inputElement) => {
+        return !inputElement.validity.valid;
+    })
+}
+
+function switchButtonStatus(inputs, button, buttonErrorClass) {
+    if(hasInvalidInput(inputs)) {
+        button.classList.add(buttonErrorClass);
+        button.disabled = true;
+    } else {
+        button.classList.remove(buttonErrorClass);
+        button.disabled = false;
+    }
+}
+
+function enableValidationObj(object) {
+    const forms = document.querySelectorAll(object.formSelector);
+    forms.forEach((form) => {
+        const inputs = Array.from(form.querySelectorAll(object.inputSelector));
+        const button = form.querySelector(object.submitButtonSelector);
+        switchButtonStatus(inputs, button, object.inactiveButtonClass);
+        setEventListeners(form, inputs, button, object.inactiveButtonClass, object.inputErrorClass)
+    })
+    
+}
+
+// function enableValidation(form) {
+//     const forms = Array.from(document.querySelectorAll(form));
+//     forms.forEach((form) => {
+//         console.log(form);
+//         setEventListeners(form);
+//     })
+// }
+// function setEventListeners(form) {
+//     const inputs = Array.from(form.querySelectorAll('.popup__input'));
+//     const button = form.querySelector('.popup__edit-button');
+//     switchButtonStatus(inputs, button);
+//     inputs.forEach((input) => {
+//         // checkValidity(form, input);
+//         console.log(input.value);
+//         input.addEventListener('input', function () {
+//             checkValidity(form, input);
+//             switchButtonStatus(inputs, button);
+//         })
+//     })
+// }
+// function checkValidity(form, input) {
+//     if(!input.validity.valid) {
+//         showError(form, input);
+//     } else {
+//         hideError(form, input);
+//     }
+// }
+// function showError(form, input) {
+//     const errorElement = form.querySelector(`#${input.id}-error`);
+//     input.classList.add('popup__input_type_error');
+//     errorElement.textContent = input.validationMessage;
+// }
+// function hideError(form, input) {
+//     const errorElement = form.querySelector(`#${input.id}-error`);
+//     input.classList.remove('popup__input_type_error');
+//     errorElement.textContent = '';
+// }
+// function switchButtonStatus(inputs, button) {
+//     if(isInvalidInput(inputs)) {
+//         button.classList.add('popup__edit-button_inactive');
+//         button.disabled = true;
+//     } else {
+//         button.classList.remove('popup__edit-button_inactive');
+//         button.disabled = false;
+//     }
+// }
+// function isInvalidInput(inputs) {
+//     return inputs.some(function(input) {
+//         return !input.validity.valid;
+//     })
+// }
