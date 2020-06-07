@@ -59,7 +59,11 @@ const popupImageCloseSign = document.querySelector('.popup__close_type_open-imag
 //загрузка начальных карточек через массив
 const cards = Array.from(document.querySelectorAll('.elements__element'));
 
-//
+//определение области вокург контейнера попапа всех попапов
+const overlays = Array.from(document.querySelectorAll('.popup__overlay'));
+
+//определение всех попапов
+const popups = Array.from(document.querySelectorAll('.popup'));
 
 // authorPopup.value = author.textContent;
 // subtitlePopup.value = subtitle.textContent;
@@ -162,29 +166,12 @@ function clearForm(input1, input2) {
     input2.value = '';
 }
 
-//вызовы модальных окон
-userEditButton.addEventListener('click', function() {
-    togglePopup(popup);
-});
-closeWindow.addEventListener('click', function() {
-    togglePopup(popup);
-});
-editForm.addEventListener('submit', formSubmit);
-addCardButton.addEventListener('click', function() {
-    togglePopup(popupAddCard);
-});
-closeWindowAddCard.addEventListener('click', function() {
-    togglePopup(popupAddCard);
-});
-addCardForm.addEventListener('submit', addCard);
-
 //отображение начальных карточек
 cards.forEach((el, index, array) => {
     renderCard(cardsList, el, initialCards[index].link, initialCards[index].name);
 })
 
-//тест валидности форм из попапов
-
+//валидность форм из попапов
 function checkValidity(form, input, inputErrorClass) {
     if(input.validity.valid) {
         hideError(form, input, inputErrorClass);
@@ -206,7 +193,6 @@ function hideError(formElement, input, inputErrorClass) {
 }
 
 function setEventListeners(form, inputs, formButton, buttonErrorClass, inputErrorClass) {
-    
     inputs.forEach((input) => {
         input.addEventListener('input', () => {
             checkValidity(form, input, inputErrorClass);
@@ -239,57 +225,46 @@ function enableValidationObj(object) {
         switchButtonStatus(inputs, button, object.inactiveButtonClass);
         setEventListeners(form, inputs, button, object.inactiveButtonClass, object.inputErrorClass)
     })
-    
 }
 
-// function enableValidation(form) {
-//     const forms = Array.from(document.querySelectorAll(form));
-//     forms.forEach((form) => {
-//         console.log(form);
-//         setEventListeners(form);
-//     })
-// }
-// function setEventListeners(form) {
-//     const inputs = Array.from(form.querySelectorAll('.popup__input'));
-//     const button = form.querySelector('.popup__edit-button');
-//     switchButtonStatus(inputs, button);
-//     inputs.forEach((input) => {
-//         // checkValidity(form, input);
-//         console.log(input.value);
-//         input.addEventListener('input', function () {
-//             checkValidity(form, input);
-//             switchButtonStatus(inputs, button);
-//         })
-//     })
-// }
-// function checkValidity(form, input) {
-//     if(!input.validity.valid) {
-//         showError(form, input);
-//     } else {
-//         hideError(form, input);
-//     }
-// }
-// function showError(form, input) {
-//     const errorElement = form.querySelector(`#${input.id}-error`);
-//     input.classList.add('popup__input_type_error');
-//     errorElement.textContent = input.validationMessage;
-// }
-// function hideError(form, input) {
-//     const errorElement = form.querySelector(`#${input.id}-error`);
-//     input.classList.remove('popup__input_type_error');
-//     errorElement.textContent = '';
-// }
-// function switchButtonStatus(inputs, button) {
-//     if(isInvalidInput(inputs)) {
-//         button.classList.add('popup__edit-button_inactive');
-//         button.disabled = true;
-//     } else {
-//         button.classList.remove('popup__edit-button_inactive');
-//         button.disabled = false;
-//     }
-// }
-// function isInvalidInput(inputs) {
-//     return inputs.some(function(input) {
-//         return !input.validity.valid;
-//     })
-// }
+function closePopupsOnEsc(popups) {
+    popups.forEach((popup) => {
+        closePopup(popup);
+    })
+}
+
+function findButton(evt) {
+    if(evt.key === 'Escape') {
+        return closePopupsOnEsc(popups);
+    } else {
+        return 'Pressed not Escape button'
+    }
+}
+
+//вызовы модальных окон
+userEditButton.addEventListener('click', function() {
+    togglePopup(popup);
+});
+closeWindow.addEventListener('click', function() {
+    togglePopup(popup);
+});
+editForm.addEventListener('submit', formSubmit);
+addCardButton.addEventListener('click', function() {
+    togglePopup(popupAddCard);
+});
+closeWindowAddCard.addEventListener('click', function() {
+    togglePopup(popupAddCard);
+});
+addCardForm.addEventListener('submit', addCard);
+
+//навешивание событий закрытия оверлеев попапов
+overlays.forEach((overlay) => {
+    overlay.addEventListener('click', function(evt) {
+        closePopup(evt.target.closest('.popup'))
+    })
+})
+
+//навешивание обработчиков закрытия попапов через кнопку Escape
+document.addEventListener('keydown', function(evt) {
+    findButton(evt);
+})
