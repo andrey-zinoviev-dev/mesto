@@ -1,5 +1,5 @@
 //валидность форм из попапов
-function checkValidity(form, input, inputErrorClass) {
+function toggleErrorBasedOnValidity(form, input, inputErrorClass) {
     if(input.validity.valid) {
         hideError(form, input, inputErrorClass);
     } else {
@@ -23,7 +23,7 @@ function hideError(formElement, input, inputErrorClass) {
 function setEventListeners(form, inputs, formButton, buttonErrorClass, inputErrorClass) {
     inputs.forEach((input) => {
         input.addEventListener('input', () => {
-            checkValidity(form, input, inputErrorClass);
+            toggleErrorBasedOnValidity(form, input, inputErrorClass);
             switchButtonStatus(inputs, formButton, buttonErrorClass);
         })
     })
@@ -54,18 +54,9 @@ function enableValidationObj(object) {
         setEventListeners(form, inputs, button, object.inactiveButtonClass, object.inputErrorClass)
     })
 }
-//функция закрытия попапа на кнопку ESC
-function closePopupsOnEsc(popup) {
-    closePopup(popup)
-}
-//функция нахождения кнопки ESC
-function pressEsc(evt, popup) {
-    if(evt.key === 'Escape') {
-        return closePopupsOnEsc(popup);
-    }
-}
+
 //функция очистки ошибок при валидации
-function clearErrorSpans(formElement, inputElement, inputErrorClass) {
+function clearErrorMessages(formElement, inputElement, inputErrorClass) {
     const forms = findForms(formElement);
     forms.forEach((form) => {
         const inputs = findInputs(form, inputElement);
@@ -76,12 +67,12 @@ function clearErrorSpans(formElement, inputElement, inputErrorClass) {
 }
 
 //функция поиска форм в попапе
-function findForms(formElement) {
-    return Array.from(document.querySelectorAll(formElement));
+function findForms(formElementSelector) {
+    return Array.from(document.querySelectorAll(formElementSelector));
 }
 
 //функция поиска инпутов
-function findInputs(form, inputElement) {
-    return Array.from(form.querySelectorAll(inputElement));
+function findInputs(form, inputElementSelector) {
+    return Array.from(form.querySelectorAll(inputElementSelector));
 }
 

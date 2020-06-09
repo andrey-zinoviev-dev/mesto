@@ -24,54 +24,6 @@
         </section>
         <section class="elements">
             <ul class="elements__list">
-                <li class="elements__element">
-                    <img class="elements__element-delete-sign" src="./images/delete_icon.png" alt="удалить">
-                    <img class="elements__element-photo" alt="Карачаевск">
-                    <div class="elements__element-rectangle">
-                        <p class="elements__element-text"></p>
-                        <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
-                    </div>
-                </li>
-                <li class="elements__element">
-                    <img class="elements__element-delete-sign" src="./images/delete_icon.png" alt="удалить">
-                    <img class="elements__element-photo" alt="Эльбрус">
-                    <div class="elements__element-rectangle">
-                        <p class="elements__element-text"></p>
-                        <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
-                    </div>
-                </li>
-                <li class="elements__element">
-                    <img class="elements__element-delete-sign" src="./images/delete_icon.png" alt="удалить">
-                    <img class="elements__element-photo" alt="Домбай">
-                    <div class="elements__element-rectangle">
-                        <p class="elements__element-text"></p>
-                        <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
-                    </div>
-                </li>
-                <li class="elements__element">
-                    <img class="elements__element-delete-sign" src="./images/delete_icon.png" alt="удалить">
-                    <img class="elements__element-photo" alt="Ставрополь">
-                    <div class="elements__element-rectangle">
-                        <p class="elements__element-text"></p>
-                        <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
-                    </div>
-                </li>
-                <li class="elements__element">
-                    <img class="elements__element-delete-sign" src="./images/delete_icon.png" alt="удалить">
-                    <img class="elements__element-photo" alt="Домбай">
-                    <div class="elements__element-rectangle">
-                        <p class="elements__element-text"></p>
-                        <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
-                    </div>
-                </li>
-                <li class="elements__element">
-                    <img class="elements__element-delete-sign" src="./images/delete_icon.png" alt="удалить">
-                    <img class="elements__element-photo" alt="Волгоград">
-                    <div class="elements__element-rectangle">
-                        <p class="elements__element-text"></p>
-                        <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
-                    </div>
-                </li>
             </ul>
         </section>
     </main>
@@ -83,9 +35,9 @@
             <h4 class="popup__title">Редактировать профиль</h4>
             <button type="button" class="popup__close"><img class="popup__close-sign" src="./images/Close-icon.png" alt="закрыть окно"></button>
             <form class="popup__form popup__form_type_user-edit" action="/" novalidate>
-                <input id="username-input" class="popup__input popup__input_order_first" name="username" type="text" required minlength="2" maxlength="40" pattern="[A-Za-zА-Яа-я -]{2,40}">
+                <input id="username-input" class="popup__input popup__input_order_first" name="username" type="text" required minlength="2" maxlength="40" pattern="[A-Za-zА-Яа-я -]{2,40}" autocomplete="off">
                 <span id="username-input-error" class="popup__input-error-message"></span>
-                <input id="occupation-input" class="popup__input popup__input_order_second" name="occupation" type="text" required minlength="2" maxlength="200" pattern="[A-Za-zА-Яа-я -]{2,30}">
+                <input id="occupation-input" class="popup__input popup__input_order_second" name="occupation" type="text" required minlength="2" maxlength="200" pattern="[A-Za-zА-Яа-я -]{2,30}" autocomplete="off">
                 <span id="occupation-input-error" class="popup__input-error-message popup__input-error-message_order_second"></span>
                 <button type="submit" class="popup__edit-button">Сохранить</button>
             </form>
@@ -97,9 +49,9 @@
             <h4 class="popup__title">Новое место</h4>
             <button type="button" class="popup__close popup__close_type_addCard"><img class="popup__close-sign" src="./images/Close-icon.png" alt="закрыть окно"></button>
             <form class="popup__form popup__form_type_addCard-form" action="/">
-                <input id="place-name-input" class="popup__input popup__input_order_first popup__input_place-name" name="place-name" type="text" placeholder="Название" required type="text" minlength="1" maxlength="30">
+                <input id="place-name-input" class="popup__input popup__input_order_first popup__input_place-name" name="place-name" type="text" placeholder="Название" required type="text" minlength="1" maxlength="30" autocomplete="off">
                 <span id="place-name-input-error" class="popup__input-error-message"></span>
-                <input id="palce-image-link-input" class="popup__input popup__input_order_second popup__input_image-link" name="palce-image-link" placeholder="Ссылка на картинку" required type="url">
+                <input id="palce-image-link-input" class="popup__input popup__input_order_second popup__input_image-link" name="palce-image-link" placeholder="Ссылка на картинку" required type="url" autocomplete="off">
                 <span id="palce-image-link-input-error" class="popup__input-error-message popup__input-error-message_order_second"></span>
                 <button type="submit" class="popup__edit-button popup__edit-button_action_addCard">Сохранить</button>
             </form>
@@ -124,7 +76,7 @@
             </div>
         </li>
     </template>
-    <script src="./validate.js"></script>
-    <script src="index.js"></script>
+    <script src="./scripts/validate.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>

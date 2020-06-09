@@ -41,14 +41,14 @@ const initialCards = [
     }
 ];
 
-const obj = {
+const selectorsObject = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__edit-button',
     inactiveButtonClass: 'popup__edit-button_inactive',
     inputErrorClass: 'popup__input_type_error',
     errorClass: '.popup__input-error-message'
-}
+};
 
 //определение переменных картинок и текста карточек
 const popupImageWindow = document.querySelector('.popup_picture');
@@ -56,14 +56,11 @@ const popupPicture = document.querySelector('.popup__image');
 const popupPictureText = document.querySelector('.popup__image-text');
 const popupImageCloseSign = document.querySelector('.popup__close_type_open-image');
 
-//загрузка начальных карточек через массив
-const cards = Array.from(document.querySelectorAll('.elements__element'));
-
 //определение области вокург контейнера попапа всех попапов
 const overlays = Array.from(document.querySelectorAll('.popup__overlay'));
 
 //определение всех попапов
-const popups = Array.from(document.querySelectorAll('.popup'));
+// const popups = Array.from(document.querySelectorAll('.popup'));
 
 // authorPopup.value = author.textContent;
 // subtitlePopup.value = subtitle.textContent;
@@ -86,20 +83,23 @@ function formSubmit(event) {
 function togglePopup(element, formElement, inputElement, inputErrorClass) {
     if(element.classList.contains('popup_opened')) {
         closePopup(element);
+
         //удаление обработчика нажатия на ESC для закрытия попапов
-        document.removeEventListener('keydown', function(evt) {
-            pressEsc(evt, element);
+        document.removeEventListener('keydown', function (evt) {
+            handleEscKeyboardButton(evt, element);
         })
     } else {
         openPopupElement(element);
         authorPopup.value = author.textContent;
         subtitlePopup.value = subtitle.textContent;
+
         //вызов функции сброса ошибок полей инпутов
-        clearErrorSpans(formElement, inputElement, inputErrorClass);
-        enableValidationObj(obj);
+        clearErrorMessages(formElement, inputElement, inputErrorClass);
+        enableValidationObj(selectorsObject);
+
         //добавление обработчиков нажатия на кнопку ESC для закрытия попапа
-        document.addEventListener('keydown', function(evt) {
-            pressEsc(evt, element);
+        document.addEventListener('keydown', function (evt) {
+            handleEscKeyboardButton(evt, element);
         })
     }
 }
@@ -132,18 +132,18 @@ function likeToggle(element) {
 
 //функция рендера карточки
 function renderCard(elementsList, element, image, text) {
-    const cardPicture = element.querySelector('.elements__element-photo');
+    const cardImage = element.querySelector('.elements__element-photo');
     const cardText = element.querySelector('.elements__element-text');
     const deleteButton = element.querySelector('.elements__element-delete-sign');
     const likeButton = element.querySelector('.elements__element-like')
-    addTextAndImage(cardPicture, cardText, image, text);
+    addTextAndImage(cardImage, cardText, image, text);
     deleteButton.addEventListener('click', function() {
         deleteCard(deleteButton);
     })
     likeButton.addEventListener('click', function() {
         likeToggle(likeButton);
     })
-    cardPicture.addEventListener('click', function (event) {
+    cardImage.addEventListener('click', function (event) {
         zoomImage(event);
         popupImageCloseSign.addEventListener('click', toggleImagePopup);
     })
@@ -153,7 +153,12 @@ function renderCard(elementsList, element, image, text) {
 
 //функция попеременного открытия и закрытия модального окна с увеличенными картинками
 function toggleImagePopup(event) {
-    let element = event.target.closest('.popup_picture');
+    const element = event.target.closest('.popup_picture');
+
+    //удаление обработчика закрытия попапа с увеличенной картинкой при нажатии на ESC 
+    document.removeEventListener('keydown', function (evt) {
+        handleEscKeyboardButton(evt, element);
+    })
     if(element.classList.contains('popup_opened')) {
         closePopup(element);
     } else {
@@ -168,7 +173,11 @@ function zoomImage(element) {
     popupPicture.src = imageLink;
     popupPictureText.textContent = imageName;
     openPopupElement(popupImageWindow);
-    popupImageCloseSign.addEventListener('click', toggleImagePopup);
+    
+    //добавление обработчика закрытия попапа с увеличенной картинкой нажатием на ESC
+    document.addEventListener('keydown', function (evt) {
+        handleEscKeyboardButton(evt, popupImageWindow);
+    })
 }
 //фукнция очистки форм
 function clearForm(input1, input2) {
@@ -176,24 +185,39 @@ function clearForm(input1, input2) {
     input2.value = '';
 }
 
+//фукнция добавления изначальных карточек
+function addInitialCards(cardsList, object) {
+    const cardContainer = cardTemplate.content;
+    const cardElement = cardContainer.cloneNode(true);
+    renderCard(cardsList, cardElement, object.link, object.name);
+}
+
+//функция нахождения кнопки ESC
+function handleEscKeyboardButton(evt, popupElement) {
+    if(evt.key === 'Escape') {
+        closePopup(popupElement);
+    }
+}
+
 //отображение начальных карточек
-cards.forEach((el, index, array) => {
-    renderCard(cardsList, el, initialCards[index].link, initialCards[index].name);
+initialCards.forEach((el) => {
+    addInitialCards(cardsList, el);
 })
+
 
 //вызовы модальных окон
 userEditButton.addEventListener('click', function() {
-    togglePopup(popup, obj.formSelector, obj.inputSelector, obj.inputErrorClass);
+    togglePopup(popup, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
 });
 closeWindow.addEventListener('click', function() {
-    togglePopup(popup, obj.formSelector, obj.inputSelector, obj.inputErrorClass);
+    togglePopup(popup, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
 });
 editForm.addEventListener('submit', formSubmit);
 addCardButton.addEventListener('click', function() {
-    togglePopup(popupAddCard, obj.formSelector, obj.inputSelector, obj.inputErrorClass);
+    togglePopup(popupAddCard, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
 });
 closeWindowAddCard.addEventListener('click', function() {
-    togglePopup(popupAddCard, obj.formSelector, obj.inputSelector, obj.inputErrorClass);
+    togglePopup(popupAddCard, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
 });
 addCardForm.addEventListener('submit', addCard);
 
