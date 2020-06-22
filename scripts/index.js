@@ -52,16 +52,14 @@ const selectorsObject = {
 
 //определение переменных картинок и текста карточек
 const popupImageWindow = document.querySelector('.popup_picture');
-const popupPicture = document.querySelector('.popup__image');
-const popupPictureText = document.querySelector('.popup__image-text');
 const popupImageCloseSign = document.querySelector('.popup__close_type_open-image');
 
 //определение области вокург контейнера попапа всех попапов
 const overlays = Array.from(document.querySelectorAll('.popup__overlay'));
 
-//нахождение всех форм
-const formElements = Array.from(document.querySelectorAll('.popup__form'));
-
+//нахождение формы изменения пользователя
+const formUserEdit = document.querySelector('.popup__form_type_user-edit');
+const formAddCard = document.querySelector('.popup__form_type_addCard-form');
 //импорт класса Card
 import {Card} from './Card.js';
 
@@ -113,22 +111,6 @@ function addCard(event) {
     cardsList.prepend(cardElement);
 }
 
-//функция добавления текста и источника картинки
-function addTextAndImage(elementPicture, elementText, image, text) {
-    elementPicture.src = image;
-    elementText.textContent = text;
-}
-
-//функция удаления картинки
-function deleteCard(element) {
-    element.closest('.elements__element').classList.add('elements__element_status_deleted');
-}
-
-//функция актив-деактив лайков
-function likeToggle(element) {
-    element.firstChild.classList.toggle('elements__element-like-sign_status_active');
-}
-
 //функция попеременного открытия и закрытия модального окна с увеличенными картинками
 function toggleImagePopup(event) {
     const element = event.target.closest('.popup_picture');
@@ -143,32 +125,6 @@ function toggleImagePopup(event) {
     }
 }
 
-//функция увеличения картинки по клику
-function zoomImage(element) {
-    const imageLink = element.target.src;
-    const imageName = element.target.nextElementSibling.children[0].textContent;
-    popupPicture.src = imageLink;
-    popupPictureText.textContent = imageName;
-    openPopupElement(popupImageWindow);
-    
-    //добавление обработчика закрытия попапа с увеличенной картинкой нажатием на ESC
-    document.addEventListener('keydown', function (evt) {
-        handleEscKeyboardButton(evt, popupImageWindow);
-    })
-}
-//фукнция очистки форм
-function clearForm(input1, input2) {
-    input1.value = '';
-    input2.value = '';
-}
-
-//фукнция добавления изначальных карточек
-function addInitialCards(cardsList, object) {
-    const cardContainer = cardTemplate.content;
-    const cardElement = cardContainer.cloneNode(true);
-    renderCard(cardsList, cardElement, object.link, object.name);
-}
-
 //функция нахождения кнопки ESC
 function handleEscKeyboardButton(evt, popupElement) {
     if(evt.key === 'Escape') {
@@ -179,7 +135,7 @@ function handleEscKeyboardButton(evt, popupElement) {
 //вызовы модальных окон
 userEditButton.addEventListener('click', function() {
     togglePopup(popup);
-    const form = new FormValidator(selectorsObject, formElements[0]);
+    const form = new FormValidator(selectorsObject, formUserEdit);
     //вызов функции очистки инпутов от ошибок
     form.clearErrors();
     //вызов функции запуска валидации
@@ -191,7 +147,7 @@ closeWindow.addEventListener('click', function() {
 editForm.addEventListener('submit', formSubmit);
 addCardButton.addEventListener('click', function() {
     togglePopup(popupAddCard);
-    const form = new FormValidator(selectorsObject, formElements[1]);
+    const form = new FormValidator(selectorsObject, formAddCard);
     //вызов функции очистки инпутов от ошибок
     form.clearErrors();
     //вызов функции запуска валидации

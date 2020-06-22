@@ -1,11 +1,11 @@
 export class Card {
-    constructor (image, text, container) {
+    constructor (image, text, templateSelector) {
         this._image = image;
         this._text = text;
-        this._container = container;
+        this._templateSelector = templateSelector;
     }
-    _getTemplate() {
-        const cardElement = document.querySelector(this._container)
+    _getCardElement() {
+        const cardElement = document.querySelector(this._templateSelector)
         .content
         .querySelector('.elements__element')
         .cloneNode(true);
@@ -46,7 +46,7 @@ export class Card {
         }
     }
     generateCard() {
-        this._element = this._getTemplate();
+        this._element = this._getCardElement();
         this._setEventListeners();
         this._element.querySelector('.elements__element-photo').src = this._image;
         this._element.querySelector('.elements__element-text').textContent = this._text;
