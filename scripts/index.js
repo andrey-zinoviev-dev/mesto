@@ -59,11 +59,15 @@ const popupImageCloseSign = document.querySelector('.popup__close_type_open-imag
 //определение области вокург контейнера попапа всех попапов
 const overlays = Array.from(document.querySelectorAll('.popup__overlay'));
 
-//определение всех попапов
-// const popups = Array.from(document.querySelectorAll('.popup'));
+//нахождение всех форм
+const formElements = Array.from(document.querySelectorAll('.popup__form'));
 
-// authorPopup.value = author.textContent;
-// subtitlePopup.value = subtitle.textContent;
+//импорт класса Card
+import {Card} from './Card.js';
+
+//импорт класса FormValidator
+import {FormValidator} from './FormValidator.js';
+
 //фкнция открытия модального окна
 function openPopupElement(element) {
     element.classList.add('popup_opened');
@@ -79,8 +83,9 @@ function formSubmit(event) {
     author.textContent = authorPopup.value;
     subtitle.textContent = subtitlePopup.value;
 }
+
 //функция перменного открытия и закрытия модального окна на основе существования класса
-function togglePopup(element, formElement, inputElement, inputErrorClass) {
+function togglePopup(element) {
     if(element.classList.contains('popup_opened')) {
         closePopup(element);
 
@@ -93,10 +98,6 @@ function togglePopup(element, formElement, inputElement, inputErrorClass) {
         authorPopup.value = author.textContent;
         subtitlePopup.value = subtitle.textContent;
 
-        //вызов функции сброса ошибок полей инпутов
-        clearErrorMessages(formElement, inputElement, inputErrorClass);
-        enableValidationObj(selectorsObject);
-
         //добавление обработчиков нажатия на кнопку ESC для закрытия попапа
         document.addEventListener('keydown', function (evt) {
             handleEscKeyboardButton(evt, element);
@@ -107,11 +108,9 @@ function togglePopup(element, formElement, inputElement, inputErrorClass) {
 //функция добавки новой карточки
 function addCard(event) {
     event.preventDefault();
-    const cardContainer = cardTemplate.content;
-    const cardElement = cardContainer.cloneNode(true);
-    renderCard(cardsList, cardElement, cardPicture.value, cardName.value);
-    closePopup(event.target.closest('.popup_addCard'));
-    clearForm(cardName, cardPicture);
+    const card = new Card(cardPicture.value, cardName.value, '#card-container');
+    const cardElement = card.generateCard();
+    cardsList.prepend(cardElement);
 }
 
 //функция добавления текста и источника картинки
@@ -130,31 +129,9 @@ function likeToggle(element) {
     element.firstChild.classList.toggle('elements__element-like-sign_status_active');
 }
 
-//функция рендера карточки
-function renderCard(elementsList, element, image, text) {
-    const cardImage = element.querySelector('.elements__element-photo');
-    const cardText = element.querySelector('.elements__element-text');
-    const deleteButton = element.querySelector('.elements__element-delete-sign');
-    const likeButton = element.querySelector('.elements__element-like')
-    addTextAndImage(cardImage, cardText, image, text);
-    deleteButton.addEventListener('click', function() {
-        deleteCard(deleteButton);
-    })
-    likeButton.addEventListener('click', function() {
-        likeToggle(likeButton);
-    })
-    cardImage.addEventListener('click', function (event) {
-        zoomImage(event);
-        popupImageCloseSign.addEventListener('click', toggleImagePopup);
-    })
-    elementsList.prepend(element);
-}
-
-
 //функция попеременного открытия и закрытия модального окна с увеличенными картинками
 function toggleImagePopup(event) {
     const element = event.target.closest('.popup_picture');
-
     //удаление обработчика закрытия попапа с увеличенной картинкой при нажатии на ESC 
     document.removeEventListener('keydown', function (evt) {
         handleEscKeyboardButton(evt, element);
@@ -199,27 +176,34 @@ function handleEscKeyboardButton(evt, popupElement) {
     }
 }
 
-//отображение начальных карточек
-initialCards.forEach((el) => {
-    addInitialCards(cardsList, el);
-})
-
-
 //вызовы модальных окон
 userEditButton.addEventListener('click', function() {
-    togglePopup(popup, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
+    togglePopup(popup);
+    const form = new FormValidator(selectorsObject, formElements[0]);
+    //вызов функции очистки инпутов от ошибок
+    form.clearErrors();
+    //вызов функции запуска валидации
+    form.enableValidation();
 });
 closeWindow.addEventListener('click', function() {
-    togglePopup(popup, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
+    togglePopup(popup);
 });
 editForm.addEventListener('submit', formSubmit);
 addCardButton.addEventListener('click', function() {
-    togglePopup(popupAddCard, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
+    togglePopup(popupAddCard);
+    const form = new FormValidator(selectorsObject, formElements[1]);
+    //вызов функции очистки инпутов от ошибок
+    form.clearErrors();
+    //вызов функции запуска валидации
+    form.enableValidation();
 });
 closeWindowAddCard.addEventListener('click', function() {
-    togglePopup(popupAddCard, selectorsObject.formSelector, selectorsObject.inputSelector, selectorsObject.inputErrorClass);
+    togglePopup(popupAddCard);
 });
 addCardForm.addEventListener('submit', addCard);
+
+popupImageCloseSign.addEventListener('click', toggleImagePopup);
+
 
 //навешивание событий закрытия оверлеев попапов
 overlays.forEach((overlay) => {
@@ -227,4 +211,12 @@ overlays.forEach((overlay) => {
         closePopup(evt.target.closest('.popup'))
     })
 })
+
+//отображение изначальных карточек через класс Card
+initialCards.forEach((initialCard) => {
+    const card = new Card(initialCard.link, initialCard.name, '#card-container');
+    const cardElement = card.generateCard();
+    cardsList.prepend(cardElement);
+})
+
 
