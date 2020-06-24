@@ -12,7 +12,6 @@ const closeWindowAddCard = document.querySelector('.popup__close_type_addCard');
 const addCardForm = document.querySelector('.popup__form_type_addCard-form');
 const cardName = document.querySelector('.popup__input_place-name');
 const cardPicture = document.querySelector('.popup__input_image-link');
-const cardTemplate = document.querySelector('#card-container');
 const cardsList = document.querySelector('.elements__list');
 const initialCards = [
     {
@@ -109,6 +108,7 @@ function addCard(event) {
     const card = new Card(cardPicture.value, cardName.value, '#card-container');
     const cardElement = card.generateCard();
     cardsList.prepend(cardElement);
+    togglePopup(popupAddCard);
 }
 
 //функция попеременного открытия и закрытия модального окна с увеличенными картинками
