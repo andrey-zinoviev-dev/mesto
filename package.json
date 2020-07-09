@@ -1,0 +1,39 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Проект о местах России. Он выполнен с помощью технологий display flex, display grid. Адаптивность и отзывчивость были реализованы при помощи медиазапросов \"@media\" запросов. Картинки теперь можно добавлять, ставить им лайки, удалять их и просматривать их в увеличении.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack",
+    "dev": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrey-zinoviev-dev/mesto.git"
+  },
+  "author": "Andrey Zinoviev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrey-zinoviev-dev/mesto/issues"
+  },
+  "homepage": "https://github.com/andrey-zinoviev-dev/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "autoprefixer": "^9.8.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.6.0",
+    "cssnano": "^4.1.10",
+    "file-loader": "^6.0.0",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "postcss-loader": "^3.0.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5"
+  }
+}
