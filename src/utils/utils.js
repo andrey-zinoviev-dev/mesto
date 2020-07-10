@@ -10,26 +10,32 @@ export const initialCards = [
     {
         name: "Карачаевск",
         link: karachaevskImage,
+        alt: 'Карачаевск'
     },
     {
         name: "Гора Эльбрус",
         link: elbrusImage,
+        alt: 'Эльбрус'
     },
     {
         name: "Домбай",
         link: dombayImage,
+        alt: 'Домбай'
     },
     {
         name: "Ставрополь",
         link: stavropolImage,
+        alt: 'Ставрополь'
     },
     {
         name: "Домбай",
         link: dombayMountainImage,
+        alt: 'Домбай'
     },
     {
         name: "Волгоград",
         link: volgogradImage,
+        alt: 'Волгоград'
     }
 ];
 export const selectorsObject = {

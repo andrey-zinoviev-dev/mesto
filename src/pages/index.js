@@ -35,18 +35,22 @@ userEditPopup.setEventListeners();
 //создание экземпляра класса PopupWithImage
 const imagePopup = new PopupWithImage('.popup_picture');
 
+//создание экземпляра класса FormValidator при изменении пользователя
+const userEditForm = new FormValidator(selectorsObject, formUserEdit);
+
 //вызовы модальных окон
+
+//открытие попапа редактирования пользователя
 userEditButton.addEventListener('click', function() {
     userEditPopup.open();
     const userData = userInfo.getUserInfo();
-    // console.log(userData.username);
     userNameInput.value = userData.username;
     userOccupationInput.value = userData.occupation;
-    const form = new FormValidator(selectorsObject, formUserEdit);
+    
     //вызов функции очистки инпутов от ошибок
-    form.clearErrors();
+    userEditForm.clearErrors();
     //вызов функции запуска валидации
-    form.enableValidation();
+    userEditForm.enableValidation();
 });
 
 //содание экземпляра класса PopupWithForm (попап с добвлением новой карточки)
@@ -62,14 +66,18 @@ const popupAddCardElement = new PopupWithForm ({popupSelector:'.popup_addCard', 
 
 popupAddCardElement.setEventListeners();
 
+//создание экземпляра класса FormValidator для формы попапа добавления новой карточки
+const addCardForm = new FormValidator(selectorsObject, formAddCard);
+
+//открытие попапа добавления новой карточки
 addCardButton.addEventListener('click', function() {
     //инициирование класса PopupWithForm
     popupAddCardElement.open();
-    const form = new FormValidator(selectorsObject, formAddCard);
+    
     //вызов функции очистки инпутов от ошибок
-    form.clearErrors();
+    addCardForm.clearErrors();
     //вызов функции запуска валидации
-    form.enableValidation();
+    addCardForm.enableValidation();
 });
 
 //отображение изначальных через класс section
