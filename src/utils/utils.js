@@ -47,6 +47,10 @@ export const selectorsObject = {
     errorClass: '.popup__input-error-message'
 };
 export const formUserEdit = document.querySelector('.popup__form_type_user-edit');
+export const formUserEditInputs = Array.from(formUserEdit.querySelectorAll('.popup__input'));
+export const formUserEditSubmitButton = formUserEdit.querySelector('.popup__edit-button');
 export const formAddCard = document.querySelector('.popup__form_type_addCard-form');
+export const formAddCardInputs = Array.from(formAddCard.querySelectorAll('.popup__input'));
+export const formAddCardSubmitButton = formAddCard.querySelector('.popup__edit-button');
 export const userNameInput = document.querySelector('.popup').querySelector('.popup__form').querySelector('.popup__input_order_first');
 export const userOccupationInput = document.querySelector('.popup').querySelector('.popup__form').querySelector('.popup__input_order_second');

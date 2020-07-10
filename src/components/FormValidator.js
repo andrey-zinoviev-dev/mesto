@@ -6,7 +6,7 @@ export class FormValidator {
     enableValidation() {
         const inputs = Array.from(this._formElement.querySelectorAll(this._selectorsObject.inputSelector));
         inputs.forEach((input) => {
-            this._switchButtonStatus(inputs, this._formElement.querySelector(this._selectorsObject.submitButtonSelector));
+            this.switchButtonStatus(inputs, this._formElement.querySelector(this._selectorsObject.submitButtonSelector));
             this._setEventListeners(input, inputs);
         })
     }
@@ -38,7 +38,7 @@ export class FormValidator {
             return !input.validity.valid;
         })
     }
-    _switchButtonStatus(inputs, button) {
+    switchButtonStatus(inputs, button) {
         if(this._hasInvalidInput(inputs)) {
             button.classList.add(this._selectorsObject.inactiveButtonClass);
             button.disabled = true;
@@ -50,7 +50,7 @@ export class FormValidator {
     _setEventListeners(input, inputs) {
         input.addEventListener('input', () => {
             this._toggleErrorBasedOnValidity(input);
-            this._switchButtonStatus(inputs, this._formElement.querySelector(this._selectorsObject.submitButtonSelector));
+            this.switchButtonStatus(inputs, this._formElement.querySelector(this._selectorsObject.submitButtonSelector));
         })
     }
 }

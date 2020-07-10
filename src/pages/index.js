@@ -16,7 +16,7 @@ import {PopupWithForm} from '../components/PopupWithForm.js';
 
 import { UserInfo } from '../components/UserInfo.js';
 
-import {userEditButton, addCardButton, initialCards, selectorsObject, formUserEdit, formAddCard, userNameInput, userOccupationInput} from '../utils/utils.js'
+import {userEditButton, addCardButton, initialCards, selectorsObject, formUserEdit, formUserEditInputs, formUserEditSubmitButton, formAddCard, formAddCardInputs, formAddCardSubmitButton, userNameInput, userOccupationInput} from '../utils/utils.js'
 
 import './index.css';
 
@@ -38,6 +38,9 @@ const imagePopup = new PopupWithImage('.popup_picture');
 //создание экземпляра класса FormValidator при изменении пользователя
 const userEditForm = new FormValidator(selectorsObject, formUserEdit);
 
+//вызов функции запуска валидации
+userEditForm.enableValidation();
+
 //вызовы модальных окон
 
 //открытие попапа редактирования пользователя
@@ -49,8 +52,8 @@ userEditButton.addEventListener('click', function() {
     
     //вызов функции очистки инпутов от ошибок
     userEditForm.clearErrors();
-    //вызов функции запуска валидации
-    userEditForm.enableValidation();
+    //вызов фукнции изменения статуса кнопки
+    userEditForm.switchButtonStatus(formUserEditInputs, formUserEditSubmitButton)
 });
 
 //содание экземпляра класса PopupWithForm (попап с добвлением новой карточки)
@@ -69,6 +72,9 @@ popupAddCardElement.setEventListeners();
 //создание экземпляра класса FormValidator для формы попапа добавления новой карточки
 const addCardForm = new FormValidator(selectorsObject, formAddCard);
 
+//вызов функции запуска валидации
+addCardForm.enableValidation();
+
 //открытие попапа добавления новой карточки
 addCardButton.addEventListener('click', function() {
     //инициирование класса PopupWithForm
@@ -76,8 +82,8 @@ addCardButton.addEventListener('click', function() {
     
     //вызов функции очистки инпутов от ошибок
     addCardForm.clearErrors();
-    //вызов функции запуска валидации
-    addCardForm.enableValidation();
+    //вызов фукнции изменения статуса кнопки
+    addCardForm.switchButtonStatus(formAddCardInputs, formAddCardSubmitButton);
 });
 
 //отображение изначальных через класс section
