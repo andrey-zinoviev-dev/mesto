@@ -12,13 +12,17 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img class="profile__avatar" src="./images/Kusto.jpg" alt="Кусто">
+            <div class="profile__image-wrapper">
+                <img class="profile__avatar" alt="Кусто">
+                <img class="profile__avatar-edit-sign" src="./images/user-edit-sign.png" alt="конпка редактирования профиля">
+                <div class="profile__avatar-overlay"></div>
+            </div>
             <div class="profile__info">
                 <div class="profile__wrapper">
-                    <h1 class="profile__heading">Жак-Ив Кусто</h1>
+                    <h1 class="profile__heading"></h1>
                     <button type="button" class="profile__edit-button"><img class="profile__edit-button-sign" src="./images/Vector-edit.png" alt="изменить пользователя"></button>
                 </div>
-                <p class="profile__subtitle">Исследователь океана</p>
+                <p class="profile__subtitle"></p>
             </div>
             <button type="button" class="profile__add-button"><img class="profile__add-button-sign" src="./images/Vector.png" alt="Добавить картинку"></button>
         </section>
@@ -66,13 +70,39 @@
         </div>
         <div class="popup__overlay popup__overlay_type_image"></div>
     </section>
+    <section class="popup popup_delete-image">
+        <div class="popup__container">
+            <button type="button" class="popup__close popup__close_type_open-image"><img class="popup__close-sign" src="./images/Close-icon.png" alt="закрыть окно"></button>
+            <h4 class="popup__title">Вы уверены?</h4>
+            <div class="popup__wrapper">
+                <button class="popup__edit-button">Да</button>
+            </div>
+        </div>
+        <div class="popup__overlay"></div>
+    </section>
+    <section class="popup popup_avatar-edit">
+        <div class="popup__container">
+            <h4 class="popup__title">Обновить аватар</h4>
+            <button type="button" class="popup__close popup__close_type_open-image"><img class="popup__close-sign" src="./images/Close-icon.png" alt="закрыть окно"></button>
+            <form class="popup__form popup__form_type_change-avatar" action="/">
+                <input type="url" class="popup__input popup__input_type_avatar-link" name="avatar-link" id="avatar-link-input" placeholder="Ссылка на картинку" required autocomplete="off">
+                <span class="popup__input-error-message" id="avatar-link-input-error"></span>
+                <button type="submit" class="popup__edit-button">Сохранить</button>
+            </form>
+        </div>
+        <div class="popup__overlay"></div>
+    </section>
     <template id="card-container">
         <li class="elements__element">
             <img class="elements__element-delete-sign" src="./images/delete_icon.png" alt="удалить">
             <img class="elements__element-photo" alt="">
             <div class="elements__element-rectangle">
                 <p class="elements__element-text"></p>
-                <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
+                <div class="elements__element-like-count">
+                    <button type="button" class="elements__element-like"><img class="elements__element-like-sign" src="./images/like.svg" alt="лайк"></button>
+                    <span class="elements__element-like-number"></span>
+                </div>
+                
             </div>
         </li>
     </template>

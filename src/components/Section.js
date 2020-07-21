@@ -9,6 +9,9 @@ export class Section {
             this._renderer(item);
         })
     }
+    oneElementRenderer() {
+       this._renderer(this._items);
+    }
     addItem(element) {
         this._container.append(element);
     }
