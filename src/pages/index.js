@@ -23,7 +23,7 @@ import './index.css';
 import {Api} from '../components/Api.js'
 // import { Popup } from '../components/Popup.js';
 import {PopupDeleteCard} from '../components/PopupDeleteCard.js';
-// import { is } from 'core-js/fn/object';
+
 //создание экземпляра класса Api 
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-13',
@@ -33,79 +33,95 @@ const api = new Api({
     }
 })
 
+//параметр для определения поставленного лайка картинке, понадобится позже
+let isLiked; 
+
 //создание экземпляра класса PopupWithForm для редактирования пользователя страницы
 const userInfo = new UserInfo ({username: '.profile__heading', occupation: '.profile__subtitle'},  avatarElement);
 
-//запрос данных о пользователе с сервера
 
-let isLiked; 
+//создание экземпляра класса Section
+const cardsDefaultList = new Section({}, '.elements__list');
 
-const initialUser = api.getUser()
+//функция создания экземпляра класса Card
+function createAndAppendCard(item, userData) {
+    const card = new Card(item.link, item.name, isLiked, item.likes.length, item.owner, () => {
+        imagePopup.open(item.link, item.name);
+        imagePopup.setEventListeners();
+        }, () => {
+        deleteCardPopup._handleSubmit = () => {
+            api.deleteCard(item._id)
+            .then((data) => {
+                card.removeCard();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+        deleteCardPopup.open();
+        }, () => {
+        if(card.isLiked) {
+            api.removeLike(item._id)
+            .then((data) => {
+                card._handleLikeButton();
+                card._handleLikeCount(data.likes.length);
+                card.isLiked = !card.isLiked;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        } else {
+            api.setLike(item._id)
+            .then((data) => {
+                card._handleLikeButton();
+                card._handleLikeCount(data.likes.length)
+                card.isLiked = !card.isLiked;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+     }, "#card-container");
+    const cardElement = card.generateCard(userData, card.isLiked);
+    cardsDefaultList.addItem(cardElement);
+}
+//запрос данных о пользователе с сервера вместе с картинками
+
+Promise.all([api.getUser(), api.getInitialCards()])
 .then((data) => {
-    userInfo.setUserInfo(data);
-    //запрос данных о картинках с сервера
-    api.getInitialCards()
-    .then((cardsData) => {
-        const cardsDefaultList = new Section({
-            items: cardsData,
-            renderer: (item) => {
-                if(cardIsLiked(item.likes, data)) {
-                    isLiked = true;
-                } else {
-                    isLiked = false;
-                }
-                const card = new Card(item.link, item.name, isLiked,item.likes.length, item.owner, () => {
-               
-                imagePopup.open(item.link, item.name);
-                imagePopup.setEventListeners();
-            }, (evt) => {
-                deleteCardPopup.open();
-                deleteCardPopup._handleSubmit = () => {
-                    api.deleteCard(item._id)
-                    .then((res) => {
-                        evt.target.closest('.elements__element').remove();
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-                }
-            }, (evt) => {
-                if(card.isLiked) {
-                    api.removeLike(item._id)
-                    .then((cardData) => {
-                        evt.target.closest('.elements__element-like-count').querySelector('.elements__element-like-number').textContent = cardData.likes.length;
-                        card.isLiked = !card.isLiked;
-                    })
-                } 
-                else {
-                    api.setLike(item._id)
-                    .then((cardData) => {
-                        evt.target.closest('.elements__element-like-count').querySelector('.elements__element-like-number').textContent = cardData.likes.length;
-                        card.isLiked = !card.isLiked;
-                    })
-                }
-            }, "#card-container");
-            const cardElement = card.generateCard(data, cardIsLiked(item.likes, data));
-            cardsDefaultList.addItem(cardElement);
-            }
-        },
-        '.elements__list'
-    )
-        cardsDefaultList.elementRenderer();
-    })
+    //ответ сервера с данными пользователя и карточками
+    const [userData, initialCards] = data;
+    //запись данных пользователя в DOM
+    userInfo.setUserInfo(userData);
+    cardsDefaultList._items = initialCards;
+    cardsDefaultList._renderer = (item) => {
+        if(cardIsLiked(item.likes, userData)) {
+            isLiked = true;
+        } else {
+            isLiked = false;
+        }
+        createAndAppendCard(item, userData);
+    } 
+    cardsDefaultList.elementRenderer();
 })
-
-
+.catch((err) => {
+    console.log(err);
+})
 
 //создание классов PopupWithForm и UserInfo
 
 const userEditPopup = new PopupWithForm({popupSelector: '.popup', submitForm: (formData, evt) => {
     renderLoading(true, evt.target)
-    const editUser = api.editProfile(formData)
+    api.editProfile(formData)
     .then((data) => {
         userInfo.setUserInfo(data);
-        renderLoading(false, evt.target);
         userEditPopup.close();
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+    .finally(() => {
+        renderLoading(false, evt.target);
     })
 }})
 
@@ -140,51 +156,17 @@ userEditButton.addEventListener('click', function() {
 
 const popupAddCardElement = new PopupWithForm ({popupSelector:'.popup_addCard', submitForm: (formData, evt) => {
     renderLoading(true, evt.target);
-    const addedCard = api.addCard(formData)
-    // addedCard.then((res) => {
-    //     return res.json();
-    // })
+    api.addCard(formData)
     .then((data) => {
-        renderLoading(false, evt.target);
-        const appendCardSection = new Section ({items: data, renderer: (data) => {
-            const card = new Card (data.link, data.name, false,data.likes.length, data.owner, () => {
-                imagePopup.open(data.link, data.name);
-                imagePopup.setEventListeners();
-                },(evt) => {
-                    deleteCardPopup.open();
-                    deleteCardPopup._handleSubmit = () =>{
-                        api.deleteCard(data._id)
-                        .then((data) => {
-                            evt.target.closest('.elements__element').remove();
-                        })
-                    }
-                }, (evt) => {
-                    if(card.isLiked) {
-                        console.log('like unset on new card');
-                        api.removeLike(data._id)
-                        .then((cardData) => {
-                            evt.target.closest('.elements__element-like-count').querySelector('.elements__element-like-number').textContent = cardData.likes.length;
-                            card._handleLikeButton();
-                            evt.target.classList.remove('elements__element-like-sign_status_active');
-                            card.isLiked = !card.isLiked;
-                        })
-                    } else {
-                        console.log('like set on new card');
-                        api.setLike(data._id)
-                        .then((cardData) => {
-                            evt.target.closest('.elements__element-like-count').querySelector('.elements__element-like-number').textContent = cardData.likes.length;
-                            evt.target.classList.add('elements__element-like-sign_status_active');
-                            card.isLiked = !card.isLiked;
-                        })
-                    }
-                },'#card-container');
-                const cardElement = card.generateCard(data.owner);
-                appendCardSection.addItem(cardElement);
-            }
-        }, '.elements__list')
-        appendCardSection.oneElementRenderer();
+        createAndAppendCard(data, data.owner);
+        popupAddCardElement.close();
     })
-    popupAddCardElement.close();
+    .catch((err) => {
+        console.log(err);
+    })
+    .finally(() => {
+        renderLoading(false, evt.target);
+    })
 }})
 
 popupAddCardElement.setEventListeners();
@@ -220,11 +202,15 @@ const changeUserAvatar = new PopupWithForm({popupSelector: avatarEditPopupSelect
     renderLoading(true, evt.target);
     api.updateAvatar(formData['avatar-link'])
     .then((data) => {
-        renderLoading(false, evt.target);
         document.querySelector(avatarElement).src = data.avatar;
         changeUserAvatar.close();
     })
-    
+    .catch((err) => {
+        console.log(err);
+    })
+    .finally(() => {
+        renderLoading(false, evt.target);
+    })
 }})
 changeUserAvatar.setEventListeners();
 

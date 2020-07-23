@@ -61,10 +61,8 @@ export const avatarEditForm = document.querySelector('.popup__form_type_change-a
 
 export function renderLoading(isLoading, event) {
     if(isLoading) {
-        console.log(`loaded`);
         event.querySelector('.popup__edit-button').textContent = 'Загрузка...';
     } else {
-        console.log(`loading in process`);
         event.querySelector('.popup__edit-button').textContent = 'Сохранить';
     }
 }
