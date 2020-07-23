@@ -9,4 +9,4 @@
 
 ## Ссылка на проект
 
-Ссылка на проект: [https://andrey-zinoviev-dev.github.io/mesto/]
+Ссылка на проект: [https://andrey-zinoviev-dev.github.io/mesto/index.html]
