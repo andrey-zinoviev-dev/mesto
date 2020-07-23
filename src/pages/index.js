@@ -49,7 +49,7 @@ function createAndAppendCard(item, userData) {
         imagePopup.open(item.link, item.name);
         imagePopup.setEventListeners();
         }, () => {
-        deleteCardPopup._handleSubmit = () => {
+        deleteCardPopup.handleSubmit = () => {
             api.deleteCard(item._id)
             .then((data) => {
                 card.removeCard();
@@ -63,8 +63,8 @@ function createAndAppendCard(item, userData) {
         if(card.isLiked) {
             api.removeLike(item._id)
             .then((data) => {
-                card._handleLikeButton();
-                card._handleLikeCount(data.likes.length);
+                card.handleLikeButton();
+                card.handleLikeCount(data.likes.length);
                 card.isLiked = !card.isLiked;
             })
             .catch((err) => {
@@ -73,8 +73,8 @@ function createAndAppendCard(item, userData) {
         } else {
             api.setLike(item._id)
             .then((data) => {
-                card._handleLikeButton();
-                card._handleLikeCount(data.likes.length)
+                card.handleLikeButton();
+                card.handleLikeCount(data.likes.length)
                 card.isLiked = !card.isLiked;
             })
             .catch((err) => {
@@ -93,8 +93,8 @@ Promise.all([api.getUser(), api.getInitialCards()])
     const [userData, initialCards] = data;
     //запись данных пользователя в DOM
     userInfo.setUserInfo(userData);
-    cardsDefaultList._items = initialCards;
-    cardsDefaultList._renderer = (item) => {
+    cardsDefaultList.items = initialCards;
+    cardsDefaultList.renderer = (item) => {
         if(cardIsLiked(item.likes, userData)) {
             isLiked = true;
         } else {

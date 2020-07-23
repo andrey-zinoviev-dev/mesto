@@ -29,10 +29,10 @@ export class Card {
             this.handleDeleteButtonClick();
         })
     }
-    _handleLikeButton() {
+    handleLikeButton() {
         this._element.querySelector('.elements__element-like-sign').classList.toggle('elements__element-like-sign_status_active');
     }
-    _handleLikeCount(count) {
+    handleLikeCount(count) {
         this._element.querySelector('.elements__element-like-number').textContent = count;
     }
     removeCard() {
